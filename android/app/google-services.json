@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339886596378",
+    "project_id": "fir-chat-app-ef28e",
+    "storage_bucket": "fir-chat-app-ef28e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339886596378:android:577ee6215b3a42f5760ca3",
+        "android_client_info": {
+          "package_name": "com.example.demo_chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm9hjQm_Npl6m-6JCmEIEP2DsgK4fYPkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
