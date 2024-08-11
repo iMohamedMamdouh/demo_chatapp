@@ -1,9 +1,11 @@
 import 'package:demo_chatapp/firebase_options.dart';
 import 'package:demo_chatapp/screens/chat_screen.dart';
+import 'package:demo_chatapp/screens/cubits/login_cubit/login_cubit.dart';
 import 'package:demo_chatapp/screens/login_screen.dart';
 import 'package:demo_chatapp/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +20,17 @@ class DemoChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        LoginScreen.id: (context) => const LoginScreen(),
-        RegisterScreen.id: (context) => const RegisterScreen(),
-        ChatScreen.id: (context) => ChatScreen(),
-      },
-      initialRoute: LoginScreen.id,
+    return BlocProvider(
+      create: (context) => LoginCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          LoginScreen.id: (context) => LoginScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
+          ChatScreen.id: (context) => ChatScreen(),
+        },
+        initialRoute: LoginScreen.id,
+      ),
     );
   }
 }
