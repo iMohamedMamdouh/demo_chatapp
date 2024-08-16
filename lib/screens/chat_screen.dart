@@ -33,13 +33,10 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          BlocConsumer<ChatCubit, ChatState>(
-            listener: (context, state) {
-              if (state is ChatSuccess) {
-                messagesList = state.message;
-              }
-            },
+          BlocBuilder<ChatCubit, ChatState>(
             builder: (context, state) {
+              var messagesList =
+                  BlocProvider.of<ChatCubit>(context).messagesList;
               return Expanded(
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),

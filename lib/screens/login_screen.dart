@@ -1,9 +1,8 @@
 import 'package:demo_chatapp/constants.dart';
 import 'package:demo_chatapp/helper/show_snack_bar.dart';
 import 'package:demo_chatapp/screens/chat_screen.dart';
+import 'package:demo_chatapp/screens/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_chatapp/screens/cubits/chat_cubit/chat_cubit.dart';
-import 'package:demo_chatapp/screens/cubits/login_cubit/login_cubit.dart';
-import 'package:demo_chatapp/screens/cubits/login_cubit/login_state.dart';
 import 'package:demo_chatapp/screens/register_screen.dart';
 import 'package:demo_chatapp/widget/custom_button.dart';
 import 'package:demo_chatapp/widget/custom_text_field.dart';
@@ -26,7 +25,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
@@ -96,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                 CustomButton(
                   onTap: () async {
                     if (formkey.currentState!.validate()) {
-                      BlocProvider.of<LoginCubit>(context)
+                      BlocProvider.of<AuthCubit>(context)
                           .loginUser(email: email!, password: password!);
                     }
                   },
