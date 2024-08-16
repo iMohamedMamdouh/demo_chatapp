@@ -1,7 +1,9 @@
 import 'package:demo_chatapp/constants.dart';
 import 'package:demo_chatapp/models/message.dart';
+import 'package:demo_chatapp/screens/cubits/chat_cubit/chat_cubit.dart';
 import 'package:demo_chatapp/widget/chat_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatScreen extends StatelessWidget {
   static String id = 'ChatScreen';
@@ -31,38 +33,47 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              reverse: true,
-              controller: _controller,
-              itemCount: messagesList.length,
-              itemBuilder: (context, index) {
-                return messagesList[index].id == email
-                    ? ChatBubble(
-                        message: messagesList[index],
-                      )
-                    : ChatBubbleForUser(
-                        message: messagesList[index],
-                      );
-              },
-            ),
+          BlocConsumer<ChatCubit, ChatState>(
+            listener: (context, state) {
+              if (state is ChatSuccess) {
+                messagesList = state.message;
+              }
+            },
+            builder: (context, state) {
+              return Expanded(
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  reverse: true,
+                  controller: _controller,
+                  itemCount: messagesList.length,
+                  itemBuilder: (context, index) {
+                    return messagesList[index].id == email
+                        ? ChatBubble(
+                            message: messagesList[index],
+                          )
+                        : ChatBubbleForUser(
+                            message: messagesList[index],
+                          );
+                  },
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: controller,
               onSubmitted: (data) {
-                if (data.isNotEmpty) {
-                  controller.clear();
-                  _controller.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeIn,
-                  );
-                } else {
-                  return;
-                }
+                BlocProvider.of<ChatCubit>(context).sendMessage(
+                  message: data,
+                  email: email.toString(),
+                );
+                controller.clear();
+                _controller.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
               },
               decoration: InputDecoration(
                 border: const OutlineInputBorder(

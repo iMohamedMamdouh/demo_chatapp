@@ -1,6 +1,7 @@
 import 'package:demo_chatapp/constants.dart';
 import 'package:demo_chatapp/helper/show_snack_bar.dart';
 import 'package:demo_chatapp/screens/chat_screen.dart';
+import 'package:demo_chatapp/screens/cubits/chat_cubit/chat_cubit.dart';
 import 'package:demo_chatapp/screens/cubits/login_cubit/login_cubit.dart';
 import 'package:demo_chatapp/screens/cubits/login_cubit/login_state.dart';
 import 'package:demo_chatapp/screens/register_screen.dart';
@@ -30,6 +31,7 @@ class LoginScreen extends StatelessWidget {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessages();
           Navigator.pushNamed(context, ChatScreen.id);
           isLoading = false;
         } else if (state is LoginFailure) {
