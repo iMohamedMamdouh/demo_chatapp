@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:demo_chatapp/constants.dart';
 import 'package:demo_chatapp/helper/show_snack_bar.dart';
 import 'package:demo_chatapp/screens/chat_screen.dart';

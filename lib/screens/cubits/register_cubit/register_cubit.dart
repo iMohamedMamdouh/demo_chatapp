@@ -27,11 +27,9 @@ class RegisterCubit extends Cubit<RegisterState> {
           RegisterFailure(
               errMessage: 'The account already exists for that email.'),
         );
+      } else {
+        emit(RegisterFailure(errMessage: 'Something went wrong'));
       }
-    } catch (e) {
-      emit(
-        RegisterFailure(errMessage: 'Something went wrong'),
-      );
     }
   }
 }

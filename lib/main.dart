@@ -1,6 +1,7 @@
 import 'package:demo_chatapp/firebase_options.dart';
 import 'package:demo_chatapp/screens/chat_screen.dart';
 import 'package:demo_chatapp/screens/cubits/login_cubit/login_cubit.dart';
+import 'package:demo_chatapp/screens/cubits/register_cubit/register_cubit.dart';
 import 'package:demo_chatapp/screens/login_screen.dart';
 import 'package:demo_chatapp/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,8 +21,11 @@ class DemoChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => RegisterCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
